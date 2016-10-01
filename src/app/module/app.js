@@ -10,6 +10,7 @@ require('./switch/switch');
 module.exports = angular.module('busAdmin', [
     'ngAnimate',
     'ngMaterial',
+    'md.data.table',
     'ngRoute',
     'route-segment',
     'view-segment',

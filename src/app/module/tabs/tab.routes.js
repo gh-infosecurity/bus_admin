@@ -6,6 +6,6 @@ tab.config(['$routeSegmentProvider', function ($routeSegmentProvider) {
     $routeSegmentProvider.when('/tab', 'tab')
         .segment("tab", {
             controller: 'TabController',
-            template: require('./template/tab.html'),
+            template: require('./template/tab.html')
         });
 }]);
