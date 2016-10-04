@@ -1,0 +1,63 @@
+<md-card ng-controller="ApiController">
+    <md-card-title>
+        <md-card-title-text>
+            <div layout-gt-sm="row">
+                <div flex>
+                    <span class="md-headline">Станции API</span>
+                </div>
+                <md-input-container class="md-block" flex>
+                    <label>Локаль</label>
+                    <md-select ng-model="state" ng-change="update()">
+                        <md-option ng-repeat="state in states" value="{{state.display}}">
+                            {{state.display}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex>
+                    <label>Страна</label>
+                    <md-select ng-model="state" ng-change="update()">
+                        <md-option ng-repeat="state in states" value="{{state.display}}">
+                            {{state.display}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content>
+        <md-table-container>
+            <table md-table md-row-select multiple ng-model="selected">
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column md-order-by="nameToUpper">Station Name</th>
+                    <th md-column md-order-by="nameToUpper">Station Country</th>
+                    <th md-column md-numeric>Koatuu</th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row md-select="station" md-select-id="name"
+                    ng-repeat="station in stations.data">
+                    <td md-cell>{{station.name}}</td>
+                    <td md-cell>{{station.country}}</td>
+                    <td md-cell>{{station.koatu}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+    </md-card-content>
+
+    <md-card-actions layout="row" layout-align="start center">
+        <md-card-icon-actions>
+            <md-button class="md-icon-button" aria-label="Favorite">
+                <!--<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>-->
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+                <!--<md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>-->
+            </md-button>
+        </md-card-icon-actions>
+        <md-button class="md-raised md-primary">Добавить новую станцию</md-button>
+        <md-button ng-disabled="true" class="md-raised md-primary">Редактировать</md-button>
+        <md-button class="md-raised md-warn">Удалить</md-button>
+    </md-card-actions>
+</md-card>

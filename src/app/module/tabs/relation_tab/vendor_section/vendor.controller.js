@@ -1,7 +1,8 @@
-var tab = require('../tab.js');
+var tab = require('../../tab.module');
+require('./vendor.autocomplete.controller');
 
-tab.controller('TableController', ['$scope', function ($scope) {
-    'use strict';
+tab.controller('VendorController', ['$scope', function ($scope) {
+
 
     $scope.selected = [];
 

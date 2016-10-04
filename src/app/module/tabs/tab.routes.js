@@ -1,11 +1,11 @@
-require('./controller/tab.controller');
+require('./tab.controller.js');
 
-var tab = require('../tabs/tab');
+var tab = require('./tab.module');
 
 tab.config(['$routeSegmentProvider', function ($routeSegmentProvider) {
-    $routeSegmentProvider.when('/tab', 'tab')
+    $routeSegmentProvider.when('/', 'tab')
         .segment("tab", {
             controller: 'TabController',
-            template: require('./template/tab.html')
+            template: require('./tab.html')
         });
 }]);

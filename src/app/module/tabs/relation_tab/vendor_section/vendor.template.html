@@ -1,0 +1,92 @@
+<md-card ng-controller="VendorController">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Станции Вендора</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content>
+
+        <div ng-controller="VendorAutocompleteController">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex>
+                    <label>Вендор</label>
+                    <md-select ng-model="state" ng-change="update()">
+                        <md-option ng-repeat="state in states" value="{{state.display}}">
+                            {{state.display}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-autocomplete flex
+                                 ng-disabled="isDisabled"
+                                 md-no-cache="noCache"
+                                 md-selected-item="selectedItem"
+                                 md-search-text-change="searchTextChange(searchText)"
+                                 md-search-text="searchText"
+                                 md-selected-item-change="selectedItemChange(item)"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.display"
+                                 md-min-length="0"
+                                 md-floating-label="Поиск станции">
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No states matching "{{searchText}}" were found.
+                        <a ng-click="newState(searchText)">Create a new one!</a>
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+        </div>
+
+
+        <md-table-container>
+            <table md-table md-row-select multiple ng-model="selected">
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column md-order-by="nameToUpper">Station Name</th>
+                    <th md-column md-order-by="nameToUpper">Station Country</th>
+                    <th md-column md-numeric>Koatuu</th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row md-select="station" md-select-id="name"
+                    ng-repeat="station in stations.data">
+                    <td md-cell>{{station.name}}</td>
+                    <td md-cell>{{station.country}}</td>
+                    <td md-cell>{{station.koatu}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+        <div layout="row" layout-align="center center">
+            <md-switch ng-model="data.cb1" aria-label="Switch 1">
+                All
+            </md-switch>
+
+            <md-switch ng-model="data.cb2" aria-label="Switch 2" ng-false-value="'nope'"
+                       class="md-warn">
+                Merge
+            </md-switch>
+
+            <md-switch ng-model="data.cb6" aria-label="Switch 3">
+                Unmerge
+            </md-switch>
+        </div>
+    </md-card-content>
+
+    <md-card-actions layout="row" layout-align="start center">
+        <md-card-icon-actions>
+            <md-button class="md-icon-button" aria-label="Favorite">
+                <!--<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>-->
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+                <!--<md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>-->
+            </md-button>
+        </md-card-icon-actions>
+        <md-button class="md-raised md-primary">Соеденить</md-button>
+        <md-button class="md-raised md-primary">Разделить</md-button>
+    </md-card-actions>
+</md-card>

@@ -3,9 +3,7 @@ require('angular-route-segment');
 require('angular-route');
 require('angular-material');
 
-require('./menu/menu');
-require('./tabs/tab');
-require('./switch/switch');
+require('./tabs/tab.module');
 
 module.exports = angular.module('busAdmin', [
     'ngAnimate',
@@ -14,7 +12,5 @@ module.exports = angular.module('busAdmin', [
     'ngRoute',
     'route-segment',
     'view-segment',
-    'menu',
-    'tabs',
-    'switch'
+    'tabs'
 ]);
