@@ -7,17 +7,17 @@
                 </div>
                 <md-input-container class="md-block" flex>
                     <label>Локаль</label>
-                    <md-select ng-model="state" ng-change="update()">
-                        <md-option ng-repeat="state in states" value="{{state.display}}">
-                            {{state.display}}
+                    <md-select ng-model="locale" ng-change="updateLocale()">
+                        <md-option ng-repeat="locale in locales" value="{{locale}}">
+                            {{locale}}
                         </md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex>
                     <label>Страна</label>
-                    <md-select ng-model="state" ng-change="update()">
-                        <md-option ng-repeat="state in states" value="{{state.display}}">
-                            {{state.display}}
+                    <md-select ng-model="country" ng-change="update()">
+                        <md-option ng-repeat="country in countries" ng-value="country">
+                            {{country.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -26,6 +26,13 @@
     </md-card-title>
 
     <md-card-content>
+        <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Поиск по наименованию</label>
+                <input ng-init="searchName = ''" ng-model="searchName">
+            </md-input-container>
+            <md-button class="md-raised md-primary" ng-click="search()">Поиск</md-button>
+        </div>
         <md-table-container>
             <table md-table md-row-select multiple ng-model="selected">
                 <thead md-head md-order="query.order">
@@ -37,10 +44,10 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row md-select="station" md-select-id="name"
-                    ng-repeat="station in stations.data">
-                    <td md-cell>{{station.name}}</td>
-                    <td md-cell>{{station.country}}</td>
-                    <td md-cell>{{station.koatu}}</td>
+                    ng-repeat="station in stations">
+                    <td md-cell>{{station.name_ru}}</td>
+                    <td md-cell>{{getCountryAlpha2(station.country_id)}}</td>
+                    <td md-cell>{{station.code_koatuu}}</td>
                 </tr>
                 </tbody>
             </table>

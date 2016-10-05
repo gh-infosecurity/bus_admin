@@ -1,5 +1,6 @@
 require('angular');
 require('angular-material-data-table');
+require('underscore');
 require('./app/module/app');
 
 require('angular-material/angular-material.css');  //material styles

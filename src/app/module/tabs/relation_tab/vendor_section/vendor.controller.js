@@ -1,17 +1,17 @@
 var tab = require('../../tab.module');
 require('./vendor.autocomplete.controller');
+require('./vendor.service');
 
-tab.controller('VendorController', ['$scope', function ($scope) {
+tab.controller('VendorController', ['$scope', 'VendorService', function ($scope, vendorService) {
+
+
+    vendorService.getVendors(function (data) {
+        $scope.vendors = data.data.vendors;
+        $scope.vendor = $scope.vendors[0];
+    });
 
 
     $scope.selected = [];
-
-    $scope.query = {
-        order: 'name',
-        limit: 5,
-        page: 1
-    };
-
     $scope.stations = {
         data: [
             {
