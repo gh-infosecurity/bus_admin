@@ -7,20 +7,26 @@
                 </div>
                 <md-input-container class="md-block" flex>
                     <label>Локаль</label>
-                    <md-select ng-model="locale" ng-change="updateLocale()">
+                    <md-select ng-init="stationReq.locale = locales[0]" ng-model="stationReq.locale">
                         <md-option ng-repeat="locale in locales" value="{{locale}}">
                             {{locale}}
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <md-input-container class="md-block" flex>
-                    <label>Страна</label>
-                    <md-select ng-model="country" ng-change="update()">
-                        <md-option ng-repeat="country in countries" ng-value="country">
-                            {{country.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+                <div ng-controller="CountryAutocompleteController" flex>
+                    <md-autocomplete flex required
+                                     md-no-cache="noCache"
+                                     md-selected-item="selectedItem"
+                                     md-search-text="searchText"
+                                     md-items="item in querySearch()"
+                                     md-item-text="item.name"
+                                     md-selected-item-change="onChange()"
+                                     md-floating-label="Выбор страны">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.name}}</span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </div>
             </div>
         </md-card-title-text>
     </md-card-title>
@@ -29,7 +35,7 @@
         <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Поиск по наименованию</label>
-                <input ng-init="searchName = ''" ng-model="searchName">
+                <input ng-init="searchName = ''" ng-model="stationReq.searchName">
             </md-input-container>
             <md-button class="md-raised md-primary" ng-click="search()">Поиск</md-button>
         </div>
@@ -37,34 +43,30 @@
             <table md-table md-row-select multiple ng-model="selected">
                 <thead md-head md-order="query.order">
                 <tr md-row>
-                    <th md-column md-order-by="nameToUpper">Station Name</th>
-                    <th md-column md-order-by="nameToUpper">Station Country</th>
-                    <th md-column md-numeric>Koatuu</th>
+                    <th md-column md-order-by="nameToUpper">Название РУС</th>
+                    <th md-column>Название УКР</th>
+                    <th md-column>Адрес РУС</th>
+                    <th md-column>Адрес УКР</th>
+                    <th md-column>КОАТУУ</th>
+                    <th md-column>Страна</th>
                 </tr>
                 </thead>
                 <tbody md-body>
                 <tr md-row md-select="station" md-select-id="name"
                     ng-repeat="station in stations">
-                    <td md-cell>{{station.name_ru}}</td>
-                    <td md-cell>{{getCountryAlpha2(station.country_id)}}</td>
-                    <td md-cell>{{station.code_koatuu}}</td>
+                    <td md-cell>{{station.nameRu}}</td>
+                    <td md-cell>{{station.nameUa}}</td>
+                    <td md-cell>{{station.addressRu}}</td>
+                    <td md-cell>{{station.addressUa}}</td>
+                    <td md-cell>{{station.codeKoatuu}}</td>
+                    <td md-cell>{{getCountryAlpha2(station.countryId)}}</td>
                 </tr>
                 </tbody>
             </table>
         </md-table-container>
     </md-card-content>
 
-    <md-card-actions layout="row" layout-align="start center">
-        <md-card-icon-actions>
-            <md-button class="md-icon-button" aria-label="Favorite">
-                <!--<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>-->
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Share">
-                <!--<md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>-->
-            </md-button>
-        </md-card-icon-actions>
-        <md-button class="md-raised md-primary">Добавить новую станцию</md-button>
-        <md-button ng-disabled="true" class="md-raised md-primary">Редактировать</md-button>
-        <md-button class="md-raised md-warn">Удалить</md-button>
+    <md-card-actions layout="row" layout-align="center center">
+        <div ng-include="'app/module/tabs/relation_tab/api_section/toggle/toggle.template.html'" flex></div>
     </md-card-actions>
 </md-card>
